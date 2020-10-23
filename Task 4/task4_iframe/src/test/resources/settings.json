@@ -1,7 +1,7 @@
 {
 	"browserName": "chrome",
 	"isRemote": false,
-	"isElementHighlightEnabled" : true,
+	"isElementHighlightEnabled" : false,
 	"driverSettings": {
 		"chrome": {
 			"webDriverVersion": "latest",
