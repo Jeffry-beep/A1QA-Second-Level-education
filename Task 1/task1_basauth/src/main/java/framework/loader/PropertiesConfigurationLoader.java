@@ -9,28 +9,25 @@ import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 
-public class TestConfigurationLoader {
+import aquality.selenium.core.logging.Logger;
 
-	private static final String CONFIG_FILE_PATH = "src/test/resources/config.properties";
-	private static final FileBasedConfigurationBuilder<FileBasedConfiguration> BUILDER = new FileBasedConfigurationBuilder<FileBasedConfiguration>(
+public class PropertiesConfigurationLoader {
+
+	private static final FileBasedConfigurationBuilder<FileBasedConfiguration> BUILDER = new FileBasedConfigurationBuilder<>(
 			PropertiesConfiguration.class);
 
-	public static Configuration getTestConfiguration() {
-		return getConfiguration(CONFIG_FILE_PATH);
+	private PropertiesConfigurationLoader() {
+		throw new IllegalStateException("Utility class");
 	}
 
-	public static Configuration getTestConfiguration(String filePath) {
-		return getConfiguration(filePath);
-	}
-
-	private static Configuration getConfiguration(String path) {
+	public static Configuration getConfiguration(String path) {
 		Parameters parameters = new Parameters();
 		BUILDER.configure(parameters.properties().setFile(new File(path)));
 		Configuration config = null;
 		try {
 			config = BUILDER.getConfiguration();
 		} catch (ConfigurationException e) {
-			e.printStackTrace();
+			Logger.getInstance().warn("Failed initialize a Configuration object.");
 		}
 		return config;
 	}
