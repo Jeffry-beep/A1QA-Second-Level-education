@@ -3,20 +3,21 @@ package form;
 import org.openqa.selenium.By;
 
 import aquality.selenium.browser.Browser;
+import aquality.selenium.elements.interfaces.ITextBox;
 import aquality.selenium.forms.Form;
 
 public class InputFramePage extends Form {
 
-	private static final String EXPECTED_INPUT_FRAME_TITLE = "An iFrame containing the TinyMCE WYSIWYG Editor";
 	private final InputFrame frame = new InputFrame();
+	private final ITextBox frameTitle = super.getElementFactory().getTextBox(By.xpath(".//*[@id='content']/div/h3"),
+			"Input frame title");
 
 	public InputFramePage() {
 		super(By.id("mceu_13"), "Heroku IFrame page");
 	}
 
-	public boolean isInputFrameTitleCorrect() {
-		return super.getElementFactory().getTextBox(By.xpath(".//*[@id='content']/div/h3"), "Input frame title")
-				.getText().equals(EXPECTED_INPUT_FRAME_TITLE);
+	public String getInputFrameTitle() {
+		return frameTitle.getText();
 	}
 
 	public void clearAndTypeFrame(Browser browser) {
