@@ -1,19 +1,16 @@
 package test;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-import org.apache.commons.configuration2.Configuration;
 import org.testng.annotations.Test;
 
 import aquality.selenium.browser.AlertActions;
 import aquality.selenium.core.logging.Logger;
 import form.JavascriptAlertPage;
-import framework.loader.TestConfigurationLoader;
+import framework.utils.BrowserUtils;
 
 public class ModalWindowTest extends BaseTest {
-
-	private static final Configuration TEST_CONFIGURATION = TestConfigurationLoader.getTestConfiguration();
-	private static final String URL_KEY = "url";
 
 	private final static String EXPECTED_ALERT_TEXT = "I am a JS Alert";
 	private final static String EXPECTED_ALERT_RESULT = "You successfuly clicked an alert";
@@ -27,38 +24,36 @@ public class ModalWindowTest extends BaseTest {
 
 	@Test
 	public void test() {
-		Logger.getInstance().info("Try to open the paige");
-		browser.goTo(TEST_CONFIGURATION.getString(URL_KEY));
 		JavascriptAlertPage javascriptAlertPage = new JavascriptAlertPage();
 		assertTrue(javascriptAlertPage.state().waitForDisplayed(), "Failed open the paige");
 
 		Logger.getInstance().info("Try to click on the JS Alert button");
 		JavascriptAlertPage alertPage = javascriptAlertPage;
 		alertPage.clickJSAlertButton();
-		assertTrue(browser.getDriver().switchTo().alert().getText().equals(EXPECTED_ALERT_TEXT),
+		assertEquals(BrowserUtils.switchToAlert().getText(), EXPECTED_ALERT_TEXT,
 				"Failed click on the JS Alert button");
 
 		Logger.getInstance().info("Try to click on OK button in the alert");
 		browser.handleAlert(AlertActions.ACCEPT);
-		assertTrue(alertPage.checkResult(EXPECTED_ALERT_RESULT), "Failed click on OK button");
+		assertEquals(alertPage.getResult(), EXPECTED_ALERT_RESULT, "Failed click on OK button");
 
 		Logger.getInstance().info("Try to click on JS Confirm button");
 		alertPage.clickJSConfirmButton();
-		assertTrue(browser.getDriver().switchTo().alert().getText().equals(EXPECTED_CONFIRM_TEXT),
+		assertEquals(BrowserUtils.switchToAlert().getText(), EXPECTED_CONFIRM_TEXT,
 				"Failed click on the JS Confirm button");
 
 		Logger.getInstance().info("Try to click on OK button in the alert");
 		browser.handleAlert(AlertActions.ACCEPT);
-		assertTrue(alertPage.checkResult(EXPECTED_CONFIRM_RESULT), "Failed click on OK button");
+		assertEquals(alertPage.getResult(), EXPECTED_CONFIRM_RESULT, "Failed click on OK button");
 
 		Logger.getInstance().info("Try to click on JS PRompt button");
 		alertPage.clickJSPromptButton();
-		assertTrue(browser.getDriver().switchTo().alert().getText().equals(EXPECTED_PROMPT_TEXT),
+		assertEquals(BrowserUtils.switchToAlert().getText(), EXPECTED_PROMPT_TEXT,
 				"Failed click on the JS Prompt button");
 
 		Logger.getInstance().info("Try to enter text and then click on OK button");
 		browser.handlePromptAlert(AlertActions.ACCEPT, PROMPT_INPUT_TEXT);
-		assertTrue(alertPage.checkResult(EXPECTED_PROMPT_RESULT));
+		assertEquals(alertPage.getResult(), EXPECTED_PROMPT_RESULT, "Failed enter text and then click on OK button.");
 	}
 
 }

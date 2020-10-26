@@ -3,6 +3,7 @@ package form;
 import org.openqa.selenium.By;
 
 import aquality.selenium.elements.interfaces.IButton;
+import aquality.selenium.elements.interfaces.ITextBox;
 import aquality.selenium.forms.Form;
 
 public class JavascriptAlertPage extends Form {
@@ -13,13 +14,10 @@ public class JavascriptAlertPage extends Form {
 			"JS Confirm button");
 	private IButton jsPromptButton = super.getElementFactory().getButton(By.xpath("//button[@onclick='jsPrompt()']"),
 			"JS Prompt Button");
+	private ITextBox resultBox = super.getElementFactory().getTextBox(By.id("result"), "Result");
 
 	public JavascriptAlertPage() {
-		this(By.id("content"), "Javascript alert page");
-	}
-
-	protected JavascriptAlertPage(By locator, String name) {
-		super(locator, name);
+		super(By.id("content"), "Javascript alert page");
 	}
 
 	public void clickJSAlertButton() {
@@ -34,8 +32,8 @@ public class JavascriptAlertPage extends Form {
 		jsPromptButton.click();
 	}
 
-	public boolean checkResult(String expectedResult) {
-		return super.getElementFactory().getTextBox(By.id("result"), "Result").getText().equals(expectedResult);
+	public String getResult() {
+		return resultBox.getText();
 	}
 
 }
