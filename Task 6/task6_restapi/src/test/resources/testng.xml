@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="RestAPISuite">
+	<parameter name="second_step_post" value="99" />
+	<parameter name="third_step_post" value="150" />
+	<parameter name="sixth_step_user" value="5" />
+	<test name="RestAPITest">
+		<classes>
+			<class name="test.RestAPITest" />
+		</classes>
+	</test>
+</suite> 
