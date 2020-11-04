@@ -107,10 +107,6 @@ public class GamePage extends Form {
 		avatarAndInterestsForm.chooseRandomInterests(amount);
 	}
 
-	public void initializeAvatarAndInterestsFormElements() {
-		avatarAndInterestsForm.initializeElements();
-	}
-
 	public void uploadImage(String fileLocation) {
 		avatarAndInterestsForm.uploadImage(fileLocation);
 	}

@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 <suite name="UserInyerfaceSuite">
-	<parameter name="interests_number" value="3" />
 	<test name="FillCardsTest">
+		<parameter name="password" value="H1dКvrgrbew" />
+		<parameter name="email" value="herok" />
+		<parameter name="domain" value="yandex" />
+		<parameter name="tlds" value=".org" />
+		<parameter name="interests_number" value="3" />
+		<parameter name="upload_file_path" value="B:\upload.png" />
 		<classes>
 			<class name="test.FillCardsTest" />
 		</classes>
@@ -17,8 +22,8 @@
 			<class name="test.AcceptUsingCookieTest" />
 		</classes>
 	</test>
-	<parameter name="expected_timer_time" value="00:00:00" />
 	<test name="TimerTest">
+		<parameter name="expected_timer_time" value="00:00:00" />
 		<classes>
 			<class name="test.TimerTest" />
 		</classes>
