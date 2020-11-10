@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="CookiesSuite">
+	<parameter name="first_cookie_key" value="example_key_1" />
+	<parameter name="first_cookie_value" value="example_value_1" />
+	<parameter name="second_cookie_key" value="example_key_2" />
+	<parameter name="second_cookie_value" value="example_value_2" />
+	<parameter name="third_cookie_key" value="example_key_3" />
+	<parameter name="third_cookie_value" value="example_value_3" />
+	<test name="CookiesTest">
+		<classes>
+			<class name="test.CookiesTest" />
+		</classes>
+	</test>
+</suite>
