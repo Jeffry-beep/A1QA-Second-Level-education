@@ -1,0 +1,35 @@
+{
+	"browserName": "chrome",
+	"isRemote": false,
+	"isElementHighlightEnabled": false,
+	"driverSettings": {
+		"chrome": {
+			"webDriverVersion": "latest",
+			"options": {
+				"intl.accept_languages": "en",
+				"safebrowsing.enabled": "true",
+				"profile.default_content_settings.popups": "0",
+				"disable-popup-blocking": "true",
+				"download.prompt_for_download": "false",
+				"download.default_directory": "B:/Downloads"
+			},
+			"startArguments": []
+		}
+	},
+	"timeouts": {
+		"timeoutImplicit": 0,
+		"timeoutCondition": 25,
+		"timeoutScript": 10,
+		"timeoutPageLoad": 60,
+		"timeoutPollingInterval": 300,
+		"timeoutCommand": 120
+	},
+	"retry": {
+		"number": 2,
+		"pollingInterval": 300
+	},
+	"logger": {
+		"language": "en",
+		"logPageSource": true
+	}
+}
