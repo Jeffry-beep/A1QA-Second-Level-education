@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import framework.utils.json.JSONUtils;
 import kong.unirest.json.JSONObject;
 
 public class UserUtils {
@@ -13,7 +14,7 @@ public class UserUtils {
 
 	public static boolean isExpectedUser(JSONObject user, Predicate<JSONObject> predicate) {
 		LOGGER.debug("Check that this user is the expected user using received predicate");
-		return JSONObjectUtils.isExpectedObject(user, predicate);
+		return JSONUtils.isExpectedObject(user, predicate);
 	}
 
 }
