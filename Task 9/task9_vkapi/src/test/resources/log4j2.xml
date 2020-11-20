@@ -24,10 +24,16 @@
 		</Console>
 	</Appenders>
 	<Loggers>
-		<Logger name="test" level="debug" additivity="true">
+		<Logger name="framework" level="debug" additivity="true">
 			<appender-ref ref="fileLogger" level="debug" />
 		</Logger>
-		<Logger name="framework" level="debug" additivity="true">
+		<Logger name="form" level="debug" additivity="true">
+			<appender-ref ref="fileLogger" level="debug" />
+		</Logger>
+		<Logger name="step" level="debug" additivity="true">
+			<appender-ref ref="fileLogger" level="debug" />
+		</Logger>
+		<Logger name="test" level="debug" additivity="true">
 			<appender-ref ref="fileLogger" level="debug" />
 		</Logger>
 		<Root level="debug" additivity="false">

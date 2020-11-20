@@ -1,6 +1,8 @@
 package step;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import aquality.selenium.elements.interfaces.ITextBox;
 import form.UserPage;
@@ -9,6 +11,8 @@ import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 
 public class CreateWallPostCommentStep {
+
+	private static final Logger LOGGER = LogManager.getLogger(CreateWallPostCommentStep.class);
 
 	private final VkApiUtils vkApiUtils;
 	private final UserPage userPage;
@@ -24,6 +28,7 @@ public class CreateWallPostCommentStep {
 
 	public ITextBox createWallPostComment(ITextBox post, int postId) {
 		commentText = RandomStringUtils.randomAlphabetic(10);
+		LOGGER.debug("Calling 'createPostComment(userId, postId, commentText)' from VkApiUtils");
 		HttpResponse<JsonNode> createPostCommentResponse = vkApiUtils.createPostComment(userId, postId, commentText);
 		int commentId = createPostCommentResponse.getBody().getObject().getJSONObject("response").getInt("comment_id");
 		userPage.clickNextPostCommentsButton(post);
