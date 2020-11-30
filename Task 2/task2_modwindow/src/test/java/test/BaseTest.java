@@ -5,7 +5,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.apache.commons.configuration2.Configuration;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 
 import aquality.selenium.browser.AqualityServices;
@@ -46,23 +49,46 @@ public abstract class BaseTest {
 				TEST_CONFIGURATION.getString("testrail_username"), TEST_CONFIGURATION.getString("testrail_password")));
 	}
 
-	@AfterClass
-	public void afterClass() {
-		makeScreenshot();
+	@AfterMethod
+	public void afterMethod(ITestResult result) {
+		String screenshotPath = makeScreenshot();
 		apiClient.logIn();
-		HttpResponse<JsonNode> response = apiClient.addResult(new Result(ResultStatus.PASSED, 2311, 58154422,
-				System.currentTimeMillis(), 2311, "Passed successfully"));
-		apiClient.addAttachmentToResult(response.getBody().getObject().getInt("id"),
-				TEST_CONFIGURATION.getString("attachment_path"));
-		browser.quit();
+		HttpResponse<JsonNode> response = apiClient
+				.addResult(getResult(getTestResultStatus(result), getComment(result)));
+		apiClient.addAttachmentToResult(response.getBody().getObject().getInt("id"), screenshotPath);
 	}
 
-	private void makeScreenshot() {
+	private String makeScreenshot() {
+		String screenshotPath = null;
 		try {
-			Files.write(Paths.get("B:\\Attachment.jpg"), AqualityServices.getBrowser().getScreenshot());
+			screenshotPath = String.format("%s%s%s", TEST_CONFIGURATION.getString("attachment_path"),
+					RandomStringUtils.randomAlphanumeric(10), ".jpg");
+			Files.write(Paths.get(screenshotPath), AqualityServices.getBrowser().getScreenshot());
 		} catch (IOException e) {
 			Logger.getInstance().warn("Can't create file");
 		}
+		return screenshotPath;
+	}
+
+	private Result getResult(ResultStatus resultStatus, String comment) {
+		return new Result(resultStatus, TEST_CONFIGURATION.getInt("testrail_user_id"),
+				TEST_CONFIGURATION.getInt("testrail_test_id"), System.currentTimeMillis(),
+				TEST_CONFIGURATION.getInt("testrail_user_id"), comment);
+	}
+
+	private ResultStatus getTestResultStatus(ITestResult result) {
+		return result.getStatus() == ITestResult.SUCCESS ? ResultStatus.PASSED
+				: result.getStatus() == ITestResult.FAILURE ? ResultStatus.FAILED : ResultStatus.BLOCKED;
+	}
+
+	private String getComment(ITestResult result) {
+		return result.getStatus() == ITestResult.SUCCESS ? "Passed successfully"
+				: result.getStatus() == ITestResult.FAILURE ? "Test failed" : "Test was blocked";
+	}
+
+	@AfterClass
+	public void afterClass() {
+		browser.quit();
 	}
 
 }
