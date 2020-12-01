@@ -12,8 +12,8 @@ public class UserFeedPage extends Form {
 		super(By.id("main_feed"), "VK user feed page");
 	}
 
-	public void clickMyPageButtonAndWait() {
-		sideBar.clickMyPageButtonAndWait();
+	public void clickMyPageButton() {
+		sideBar.clickMyPageButton();
 	}
 
 }

@@ -4,20 +4,12 @@ import form.WelcomePage;
 
 public class LoginStep {
 
-	private final String email;
-	private final String password;
-	private final WelcomePage page;
+	private static final WelcomePage PAGE = new WelcomePage();
 
-	public LoginStep(String email, String password, WelcomePage page) {
-		this.email = email;
-		this.password = password;
-		this.page = page;
-	}
-
-	public void login() {
-		page.fillEmail(email);
-		page.fillPassword(password);
-		page.clickLoginButtonAndWait();
+	public static void login(String email, String password) {
+		PAGE.fillEmail(email);
+		PAGE.fillPassword(password);
+		PAGE.clickLoginButton();
 	}
 
 }

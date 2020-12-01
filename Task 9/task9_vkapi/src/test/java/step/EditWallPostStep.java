@@ -1,63 +1,43 @@
 package step;
 
-import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import form.UserPage;
+import aquality.selenium.core.logging.Logger;
 import framework.utils.VkApiUtils;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
+import test.BaseTest;
 
 public class EditWallPostStep {
 
-	private static final Logger LOGGER = LogManager.getLogger(UserPage.class);
+	private static final VkApiUtils VK_API_UTILS = new VkApiUtils(BaseTest.SUITE_CONFIGURATION.getString("vk_api_url"),
+			BaseTest.SUITE_CONFIGURATION.getString("user_token"),
+			BaseTest.SUITE_CONFIGURATION.getString("vk_api_version"));
 	private static final String RESPONSE_KEY = "response";
 
-	private final int userId;
-	private final int postId;
-	private final VkApiUtils vkApiUtils;
-
-	private int photoId;
-	private String newMessage;
-
-	public EditWallPostStep(int userId, int postId, VkApiUtils vkApiUtils) {
-		this.userId = userId;
-		this.postId = postId;
-		this.vkApiUtils = vkApiUtils;
-	}
-
-	public HttpResponse<JsonNode> editWallPost(String attachmentPath) {
+	public static int saveWallPhoto(int userId, String attachmentPath) {
 		String uploadUrl = getUploadUrl();
-		HttpResponse<JsonNode> uploadPhotoResponse = vkApiUtils.uploadPhotoToServer(uploadUrl, attachmentPath);
-		LOGGER.debug("Getting a server from the response");
+		HttpResponse<JsonNode> uploadPhotoResponse = VK_API_UTILS.uploadPhotoToServer(uploadUrl, attachmentPath);
+		Logger.getInstance().debug("Getting a server from the response");
 		String server = getResponseBodyAttribute(uploadPhotoResponse, "server");
-		LOGGER.debug("Getting a hash from the response");
+		Logger.getInstance().debug("Getting a hash from the response");
 		String hash = getResponseBodyAttribute(uploadPhotoResponse, "hash");
-		LOGGER.debug("Getting a photo from the response");
+		Logger.getInstance().debug("Getting a photo from the response");
 		String photo = getResponseBodyAttribute(uploadPhotoResponse, "photo");
-		HttpResponse<JsonNode> savePhotoResponse = vkApiUtils.saveWallPhoto(userId, server, hash, photo);
-		LOGGER.debug("Getting a photo id from the response");
-		photoId = savePhotoResponse.getBody().getObject().getJSONArray(RESPONSE_KEY).getJSONObject(0).getInt("id");
-		newMessage = RandomStringUtils.randomAlphabetic(10);
-		return vkApiUtils.editWallPost(userId, postId, newMessage, String.format("photo%d_%d", userId, photoId));
+		HttpResponse<JsonNode> savePhotoResponse = VK_API_UTILS.saveWallPhoto(userId, server, hash, photo);
+		Logger.getInstance().debug("Getting a photo id from the response");
+		return savePhotoResponse.getBody().getObject().getJSONArray(RESPONSE_KEY).getJSONObject(0).getInt("id");
 	}
 
-	private String getUploadUrl() {
-		HttpResponse<JsonNode> photosResponse = vkApiUtils.getPhotosWallUploadServer();
+	public static HttpResponse<JsonNode> editWallPost(int userId, int postId, int photoId, String newMessage) {
+		return VK_API_UTILS.editWallPost(userId, postId, newMessage, String.format("photo%d_%d", userId, photoId));
+	}
+
+	private static String getUploadUrl() {
+		HttpResponse<JsonNode> photosResponse = VK_API_UTILS.getPhotosWallUploadServer();
 		return photosResponse.getBody().getObject().getJSONObject(RESPONSE_KEY).getString("upload_url");
 	}
 
-	private String getResponseBodyAttribute(HttpResponse<JsonNode> uploadPhotoResponse, String attribute) {
+	private static String getResponseBodyAttribute(HttpResponse<JsonNode> uploadPhotoResponse, String attribute) {
 		return uploadPhotoResponse.getBody().getObject().getString(attribute);
-	}
-
-	public int getPhotoId() {
-		return photoId;
-	}
-
-	public String getNewMessage() {
-		return newMessage;
 	}
 
 }

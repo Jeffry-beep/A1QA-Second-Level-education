@@ -1,16 +1,13 @@
 package form;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 
+import aquality.selenium.core.logging.Logger;
 import aquality.selenium.elements.interfaces.IButton;
 import aquality.selenium.elements.interfaces.ITextBox;
 import aquality.selenium.forms.Form;
 
 public class WelcomePage extends Form {
-
-	private static final Logger LOGGER = LogManager.getLogger(WelcomePage.class);
 
 	private final ITextBox emailField = super.getElementFactory().getTextBox(By.id("index_email"), "Email field");
 	private final ITextBox passwordField = super.getElementFactory().getTextBox(By.id("index_pass"), "Password field");
@@ -22,18 +19,18 @@ public class WelcomePage extends Form {
 	}
 
 	public void fillEmail(String email) {
-		LOGGER.debug("Clearing and typing email field");
+		Logger.getInstance().debug("Clearing and typing email field");
 		emailField.clearAndType(email);
 	}
 
 	public void fillPassword(String password) {
-		LOGGER.debug("Clearing and typing password field");
+		Logger.getInstance().debug("Clearing and typing password field");
 		passwordField.clearAndType(password);
 	}
 
-	public void clickLoginButtonAndWait() {
-		LOGGER.debug("Clicking login button and waiting");
-		loginButton.clickAndWait();
+	public void clickLoginButton() {
+		Logger.getInstance().debug("Clicking login button and waiting");
+		loginButton.click();
 	}
 
 }

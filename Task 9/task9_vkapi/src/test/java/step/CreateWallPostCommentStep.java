@@ -1,39 +1,19 @@
 package step;
 
-import org.apache.commons.lang3.RandomStringUtils;
-
-import aquality.selenium.elements.interfaces.ITextBox;
-import form.UserPage;
 import framework.utils.VkApiUtils;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
+import test.BaseTest;
 
 public class CreateWallPostCommentStep {
 
-	private final VkApiUtils vkApiUtils;
-	private final UserPage userPage;
-	private final int userId;
+	private static final VkApiUtils VK_API_UTILS = new VkApiUtils(BaseTest.SUITE_CONFIGURATION.getString("vk_api_url"),
+			BaseTest.SUITE_CONFIGURATION.getString("user_token"),
+			BaseTest.SUITE_CONFIGURATION.getString("vk_api_version"));
 
-	private String commentText;
-
-	public CreateWallPostCommentStep(VkApiUtils vkApiUtils, UserPage userPage, int userId) {
-		this.vkApiUtils = vkApiUtils;
-		this.userPage = userPage;
-		this.userId = userId;
-	}
-
-	public ITextBox createWallPostComment(ITextBox post, int postId) {
-		commentText = RandomStringUtils.randomAlphabetic(10);
-		HttpResponse<JsonNode> createPostCommentResponse = vkApiUtils.createPostComment(userId, postId, commentText);
-		int commentId = createPostCommentResponse.getBody().getObject().getJSONObject("response").getInt("comment_id");
-		userPage.clickNextPostCommentsButton(post);
-		ITextBox createdComment = userPage.getPost(userId, commentId);
-		createdComment.getMouseActions().moveMouseToElement();
-		return createdComment;
-	}
-
-	public String getCommentText() {
-		return commentText;
+	public static int createWallPostComment(int userId, int postId, String commentText) {
+		HttpResponse<JsonNode> createPostCommentResponse = VK_API_UTILS.createPostComment(userId, postId, commentText);
+		return createPostCommentResponse.getBody().getObject().getJSONObject("response").getInt("comment_id");
 	}
 
 }
