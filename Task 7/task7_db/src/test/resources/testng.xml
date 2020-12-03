@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Work with DB suite">
+	<test name="DBTest">
+		<parameter name="date" value="2015-11-07 00:00:00" />
+		<parameter name="first_browser" value="chrome" />
+		<parameter name="second_browser" value="firefox" />
+		<classes>
+			<class name="test.DBTest" />
+		</classes>
+	</test>
+</suite> 

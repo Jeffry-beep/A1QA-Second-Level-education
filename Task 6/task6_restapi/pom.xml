@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.a1qa.horbach</groupId>
-	<artifactId>task3_cookie</artifactId>
+	<artifactId>task6_restapi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
@@ -14,24 +15,34 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.13.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.13.3</version>
+		</dependency>
+		<dependency>
 			<groupId>com.konghq</groupId>
 			<artifactId>unirest-java</artifactId>
-			<version>3.11.04</version>
-		</dependency>
-		<dependency>
-			<groupId>com.github.aquality-automation</groupId>
-			<artifactId>aquality-selenium</artifactId>
-			<version>LATEST</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.11</version>
+			<version>3.11.02</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-configuration2</artifactId>
 			<version>2.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.11</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-beanutils</groupId>
@@ -44,10 +55,21 @@
 			<version>7.3.0</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest</artifactId>
+			<version>2.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.shazam</groupId>
+			<artifactId>shazamcrest</artifactId>
+			<version>0.11</version>
+		</dependency>
 	</dependencies>
 
 	<build>
-		<finalName>task3_cookie</finalName>
+		<finalName>task6_restapi</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>

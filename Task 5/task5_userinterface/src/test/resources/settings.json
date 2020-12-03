@@ -1,7 +1,7 @@
 {
-	"browserName": "firefox",
+	"browserName": "chrome",
 	"isRemote": false,
-	"isElementHighlightEnabled": true,
+	"isElementHighlightEnabled": false,
 	"driverSettings": {
 		"chrome": {
 			"webDriverVersion": "latest",
@@ -14,17 +14,6 @@
 				"download.default_directory": "B:/Downloads"
 			},
 			"startArguments": []
-		},
-		"firefox": {
-			"webDriverVersion": "latest",
-			"options": {
-				"intl.accept_languages": "en",
-				"safebrowsing.enabled": "true",
-				"profile.default_content_settings.popups": "0",
-				"disable-popup-blocking": "true",
-				"download.prompt_for_download": "false",
-				"download.default_directory": "B:/Downloads"
-			}
 		}
 	},
 	"timeouts": {
