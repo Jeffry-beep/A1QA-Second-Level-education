@@ -1,0 +1,42 @@
+{
+	"browserName": "firefox",
+	"isRemote": false,
+	"isElementHighlightEnabled": false,
+	"driverSettings": {
+		"chrome": {
+			"webDriverVersion": "latest",
+			"options": {
+				"intl.accept_languages": "ru",
+				"disable-popup-blocking": "true",
+				"download.prompt_for_download": "false",
+				"download.default_directory": "B:/Downloads"
+			},
+			"startArguments": []
+		},
+		"firefox": {
+			"webDriverVersion": "latest",
+			"options": {
+				"intl.accept_languages": "en",
+				"disable-popup-blocking": "true",
+				"download.prompt_for_download": "false",
+				"download.default_directory": "B:/Downloads"
+			}
+		}
+	},
+	"timeouts": {
+		"timeoutImplicit": 0,
+		"timeoutCondition": 80,
+		"timeoutScript": 20,
+		"timeoutPageLoad": 80,
+		"timeoutPollingInterval": 320,
+		"timeoutCommand": 140
+	},
+	"retry": {
+		"number": 2,
+		"pollingInterval": 300
+	},
+	"logger": {
+		"language": "en",
+		"logPageSource": true
+	}
+}
