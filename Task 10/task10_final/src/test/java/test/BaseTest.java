@@ -22,8 +22,9 @@ public abstract class BaseTest {
 			.getConfiguration("src/test/resources/config.properties");
 	public static final Browser BROWSER = AqualityServices.getBrowser();
 	public static final TestRailAPIClient TEST_RAIL_API_CLIENT = new TestRailAPIClient(new APIClientSettings(
-			SUITE_CONFIGURATION.getString("testrail_url"), SUITE_CONFIGURATION.getString("testrail_username"),
-			SUITE_CONFIGURATION.getString("testrail_password"), SUITE_CONFIGURATION.getInt("testrail_api_version")));
+			SUITE_CONFIGURATION.getString("testrail_url"), SUITE_CONFIGURATION.getString("testrail_api_url"),
+			SUITE_CONFIGURATION.getString("testrail_username"), SUITE_CONFIGURATION.getString("testrail_password"),
+			SUITE_CONFIGURATION.getInt("testrail_api_version")));
 
 	@BeforeClass
 	public void beforeClass() {
