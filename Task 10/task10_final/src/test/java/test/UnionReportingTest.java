@@ -12,11 +12,13 @@ import static matcher.IsSortedDescendingByDate.sortedDescendingByDate;
 import java.util.List;
 import java.util.Objects;
 
+import org.openqa.selenium.Cookie;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import aquality.selenium.browser.AlertActions;
+import aquality.selenium.browser.AqualityServices;
 import aquality.selenium.browser.BrowserName;
 import aquality.selenium.core.logging.Logger;
 import form.ProjectPage;
@@ -25,6 +27,7 @@ import form.TestPage;
 import framework.db.DBRequestSender;
 import framework.unionreporting.client.UnionReportingAPIClient;
 import framework.utils.AlertUtils;
+import framework.utils.CookieUtils;
 import framework.utils.FileUtils;
 import framework.utils.ScreenshotUtils;
 import step.CookieStep;
@@ -51,21 +54,21 @@ public class UnionReportingTest extends BaseTest {
 				SUITE_CONFIGURATION.getString("app_password"));
 		ProjectsPage projectsPage = new ProjectsPage();
 		assertTrue(projectsPage.state().waitForDisplayed(), "Failed to go the projects page");
-		CookieStep.addCookieAndRefresh(token);
+		CookieUtils.addCookie(new Cookie("token", token));
+		AqualityServices.getBrowser().refresh();
 		Logger.getInstance().info("Getting the version");
 		int version = Integer.valueOf(projectsPage.getVersion());
 		assertEquals(version, variantNumber, "The version isn't equal to the variant number");
 
-		DBStep.goToProject(projectName);
+		projectsPage.clickProjectButton(projectName);
 		ProjectPage projectPage = new ProjectPage();
 		assertTrue(projectPage.state().waitForDisplayed(), "Failed to go the project page");
 		assertEquals(projectPage.getProjectName(), projectName,
 				"The actual project page (name project) is not equal to the expected page");
-		List<entity.Test> dbTests = DBStep.getTests();
+		List<entity.Test> dbTests = DBStep.getLastStartedProjectTests(projectName, 20);
 		List<entity.Test> pageTests = projectPage.getTests();
 		assertThat(pageTests, is(sortedDescendingByDate()));
-		assertTrue(dbTests.containsAll(pageTests),
-				"Tests received from the page isn't contained in tests received from a database");
+		assertEquals(dbTests, pageTests, "Tests received from the page isn't equal to tests received from a database");
 
 		BROWSER.goBack();
 		assertTrue(projectsPage.state().waitForDisplayed(), "Failed to return the projects page");
@@ -103,7 +106,7 @@ public class UnionReportingTest extends BaseTest {
 				"Actual image isn't equal to expected (uploaded) image");
 	}
 
-	@AfterMethod
+	@AfterMethod(alwaysRun = true)
 	public void afterMethod() {
 		DBRequestSender dbSender = new DBRequestSender();
 		dbSender.delete(String.format("DELETE FROM project WHERE (name = '%s')", savingProjectName));

@@ -10,7 +10,7 @@ import kong.unirest.Unirest;
 
 public class TestRailAPIClient {
 
-	private static final String LOGIN_URL = "%s/index.php?/auth/login";
+	private static final String LOGIN_URL = "%s/auth/login";
 
 	private final APIManager apiManager;
 	private final APIClientSettings clientSettings;
@@ -30,31 +30,33 @@ public class TestRailAPIClient {
 	}
 
 	public HttpResponse<JsonNode> addResult(Result result) {
-		return apiManager.addResult(clientSettings.getUrl(), result);
+		return apiManager.addResult(clientSettings.getUrl(), result, clientSettings.getApiVersion());
 	}
 
 	public HttpResponse<JsonNode> addResultForCase(Result result, int runId, int caseId) {
-		return apiManager.addResultForCase(clientSettings.getUrl(), result, runId, caseId);
+		return apiManager.addResultForCase(clientSettings.getUrl(), result, runId, caseId,
+				clientSettings.getApiVersion());
 	}
 
 	public HttpResponse<JsonNode> addAttachmentToResult(int resultId, String attachmentPath) {
-		return apiManager.addAttachmentToResult(clientSettings.getUrl(), resultId, attachmentPath);
+		return apiManager.addAttachmentToResult(clientSettings.getUrl(), resultId, attachmentPath,
+				clientSettings.getApiVersion());
 	}
 
 	public HttpResponse<JsonNode> getResultsForRun(int runId) {
-		return apiManager.getResultsForRun(clientSettings.getUrl(), runId);
+		return apiManager.getResultsForRun(clientSettings.getUrl(), runId, clientSettings.getApiVersion());
 	}
 
 	public HttpResponse<JsonNode> getResultsForCase(int runId, int caseId) {
-		return apiManager.getResultsForCase(clientSettings.getUrl(), runId, caseId);
+		return apiManager.getResultsForCase(clientSettings.getUrl(), runId, caseId, clientSettings.getApiVersion());
 	}
 
 	public HttpResponse<JsonNode> getCase(int caseId) {
-		return apiManager.getCase(clientSettings.getUrl(), caseId);
+		return apiManager.getCase(clientSettings.getUrl(), caseId, clientSettings.getApiVersion());
 	}
 
 	public HttpResponse<JsonNode> getRun(int runId) {
-		return apiManager.getRun(clientSettings.getUrl(), runId);
+		return apiManager.getRun(clientSettings.getUrl(), runId, clientSettings.getApiVersion());
 	}
 
 }

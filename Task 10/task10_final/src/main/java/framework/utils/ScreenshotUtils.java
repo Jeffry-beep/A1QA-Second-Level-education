@@ -8,6 +8,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import aquality.selenium.browser.AqualityServices;
 import aquality.selenium.core.logging.Logger;
+import framework.constants.ImageType;
 
 public class ScreenshotUtils {
 
@@ -21,7 +22,7 @@ public class ScreenshotUtils {
 		String screenshotPath = null;
 		try {
 			screenshotPath = String.format(SCREENSHOT_PATH_FORMAT, saveFolderPath,
-					RandomStringUtils.randomAlphanumeric(10), ".png");
+					RandomStringUtils.randomAlphanumeric(10), ImageType.PNG.getType());
 			Files.write(Paths.get(screenshotPath), AqualityServices.getBrowser().getScreenshot());
 		} catch (IOException e) {
 			Logger.getInstance().warn("Can't create file");
