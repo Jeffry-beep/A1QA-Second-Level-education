@@ -21,6 +21,7 @@ public class TestRailAPIClient {
 	}
 
 	public HttpResponse<String> logIn() {
+		System.out.println("Username: " + clientSettings.getUsername() + "Password: " + clientSettings.getPassword());
 		HttpResponse<String> response = Unirest.get(String.format(LOGIN_URL, clientSettings.getBaseUrl()))
 				.basicAuth(clientSettings.getUsername(), clientSettings.getPassword()).asString();
 		if (response.getStatus() == HttpStatus.OK) {
