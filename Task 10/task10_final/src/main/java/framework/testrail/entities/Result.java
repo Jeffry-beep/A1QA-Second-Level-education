@@ -8,20 +8,16 @@ public class Result {
 	private int createdBy;
 	private int testId;
 	private long createdOn;
-	private int assginedToId;
+	private int assignedToId;
 	private String comment;
 
-	public Result() {
-
-	}
-
-	public Result(ResultStatus resultStatus, int createdBy, int testId, long createdOn, int assginedToId,
+	public Result(ResultStatus resultStatus, int createdBy, int testId, long createdOn, int assignedToId,
 			String comment) {
 		this.resultStatus = resultStatus;
 		this.createdBy = createdBy;
 		this.testId = testId;
 		this.createdOn = createdOn;
-		this.assginedToId = assginedToId;
+		this.assignedToId = assignedToId;
 		this.comment = comment;
 	}
 
@@ -57,12 +53,12 @@ public class Result {
 		this.createdOn = createdOn;
 	}
 
-	public int getAssginedToId() {
-		return assginedToId;
+	public int getAssignedToId() {
+		return assignedToId;
 	}
 
-	public void setAssginedToId(int assginedToId) {
-		this.assginedToId = assginedToId;
+	public void setAssignedToId(int assginedToId) {
+		this.assignedToId = assginedToId;
 	}
 
 	public String getComment() {
@@ -75,7 +71,7 @@ public class Result {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assginedToId, comment, createdBy, createdOn, resultStatus, testId);
+		return Objects.hash(assignedToId, comment, createdBy, createdOn, resultStatus, testId);
 	}
 
 	@Override
@@ -90,7 +86,7 @@ public class Result {
 			return false;
 		}
 		Result other = (Result) obj;
-		return assginedToId == other.assginedToId && Objects.equals(comment, other.comment)
+		return assignedToId == other.assignedToId && Objects.equals(comment, other.comment)
 				&& createdBy == other.createdBy && createdOn == other.createdOn && resultStatus == other.resultStatus
 				&& testId == other.testId;
 	}
@@ -98,7 +94,7 @@ public class Result {
 	@Override
 	public String toString() {
 		return "Result [resultStatus=" + resultStatus + ", createdBy=" + createdBy + ", testId=" + testId
-				+ ", createdOn=" + createdOn + ", assginedToId=" + assginedToId + ", comment=" + comment + "]";
+				+ ", createdOn=" + createdOn + ", assginedToId=" + assignedToId + ", comment=" + comment + "]";
 	}
 
 }

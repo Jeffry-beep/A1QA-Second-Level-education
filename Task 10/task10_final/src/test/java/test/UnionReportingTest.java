@@ -57,7 +57,7 @@ public class UnionReportingTest extends BaseTest {
 		CookieUtils.addCookie(new Cookie("token", token));
 		AqualityServices.getBrowser().refresh();
 		Logger.getInstance().info("Getting the version");
-		int version = Integer.valueOf(projectsPage.getVersion());
+		int version = Integer.parseInt(projectsPage.getVersion());
 		assertEquals(version, variantNumber, "The version isn't equal to the variant number");
 
 		projectsPage.clickProjectButton(projectName);

@@ -38,7 +38,7 @@ public class ResultsManager {
 		properties.put("status_id", result.getResultStatus().getStatusId());
 		properties.put("created_by", result.getCreatedBy());
 		properties.put("created_on", result.getCreatedOn());
-		properties.put("assignedto_id", result.getAssginedToId());
+		properties.put("assignedto_id", result.getAssignedToId());
 		properties.put("comment", result.getComment());
 		return properties;
 	}
