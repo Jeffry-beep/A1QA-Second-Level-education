@@ -1,5 +1,6 @@
 package framework.testrail.client;
 
+import aquality.selenium.core.logging.Logger;
 import framework.testrail.client.settings.APIClientSettings;
 import framework.testrail.entities.Result;
 import framework.testrail.manager.APIManager;
@@ -21,7 +22,8 @@ public class TestRailAPIClient {
 	}
 
 	public HttpResponse<String> logIn() {
-		System.out.println("Username: " + clientSettings.getUsername() + "Password: " + clientSettings.getPassword());
+		Logger.getInstance()
+				.debug("Username: " + clientSettings.getUsername() + "Password: " + clientSettings.getPassword());
 		HttpResponse<String> response = Unirest.get(String.format(LOGIN_URL, clientSettings.getBaseUrl()))
 				.basicAuth(clientSettings.getUsername(), clientSettings.getPassword()).asString();
 		if (response.getStatus() == HttpStatus.OK) {
