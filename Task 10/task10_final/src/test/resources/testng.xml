@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="UnionReportingSuite">
+	<test name="UnionReportingTest">
+		<parameter name="variant_number" value="4" />
+		<parameter name="project_name" value="Nexage" />
+		<parameter name="saving_project" value="Hell" />
+		<parameter name="adding_test" value="UnionReportingTest" />
+		<parameter name="adding_test_method" value="Test" />
+		<parameter name="adding_test_env" value="localhost" />
+		<parameter name="adding_test_log" value="mylog" />
+		<classes>
+			<class name="test.UnionReportingTest" />
+		</classes>
+	</test>
+</suite>
